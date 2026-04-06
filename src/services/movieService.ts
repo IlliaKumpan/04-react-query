@@ -11,19 +11,21 @@ interface FetchMoviesResponse {
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3'; 
 
-export const fetchMovies = async (query: string): Promise<Movie[]> => {
+export const fetchMovies = async (query: string, page: number): Promise<FetchMoviesResponse> => {
   const config = {
     params: {
       query: query,
       include_adult: false,
       language: 'en-US',
+      page: page,
     },
     headers: {
-      Authorization: `Bearer ${API_KEY}`,
+        Authorization: `Bearer ${API_KEY}`,
+        accept: 'application/json'
     },
   };
 
 
   const response = await axios.get<FetchMoviesResponse>('/search/movie', config);
-  return response.data.results;
+  return response.data;
 };
