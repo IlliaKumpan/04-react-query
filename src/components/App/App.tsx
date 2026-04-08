@@ -3,7 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { MovieGrid } from '../MovieGrid/MovieGrid';
 import { Loader } from '../Loader/Loader';
-import Pagination from '../Pagination/Pagination';
+import Pagination from '../ReactPaginate/ReactPaginate';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { MovieModal } from '../MovieModal/MovieModal';
 import { fetchMovies } from '../../services/movieService';
@@ -34,15 +34,15 @@ export default function App() {
   };
 
   const movies = data?.results ?? [];
-  const totalPages = data?.total_pages ?? 1;
+  const pageCount = data?.total_pages ?? 1;
 
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
-       {totalPages > 1 && (
+       {pageCount > 1 && (
         <Pagination
-          totalPages={totalPages}
-          currentPage={page}
+          pageCount={pageCount}
+          forcePage={page}
           onPageChange={(newPage) => setPage(newPage)}
         />
       )}
